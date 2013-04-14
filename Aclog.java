@@ -15,32 +15,23 @@ public class Aclog{
 
 	public Aclog(){}
 
-	private String get(String url,String screenName,int page,int count) throws Exception{
-		URL url2 = new URL(url+"?screen_name="+screenName+"&include_user=true"+(page==0?"":"&page="+page)+(count==0?"":"&count="+count));
-		HttpURLConnection http = (HttpURLConnection)url2.openConnection();
-		http.connect();
-		BufferedReader reader = new BufferedReader(new InputStreamReader(http.getInputStream()));
-		String res = "";
-		while(true){
-			String line = reader.readLine();
-			if(line==null){
-				break;
-			}
-			res += line;
-		}
-		http.disconnect();
-		reader.close();
-		try{
-			JSONObject json = new JSONObject(res);
-			if(!json.isNull("error")){
-				throw new Exception(json.getJSONObject("error").getString("message"));
-			}
-		}catch(Exception e){}
-		return res;
+	private String toUrl(String url,Paging p){
+		url += "?include_user=true";
+		url += "&limit="+p.limit;
+		url += "&page="+p.page;
+		if(p.screenName!=null)
+			url += "&screen_name="+p.screenName;
+		if(p.count!=0)
+			url += "&count="+p.count;
+		if(p.tweet_id!=0)
+			url += "&id="+p.tweet_id;
+		if(p.max_id!=0)
+			url += "&max_id="+p.max_id;
+		return url;
 	}
 
-	private String get(String url,long id) throws Exception{
-		URL url2 = new URL(url+"?id="+id+"&include_user=true");
+	private String get(String url,Paging p) throws Exception{
+		URL url2 = new URL(toUrl(url,p));
 		HttpURLConnection http = (HttpURLConnection)url2.openConnection();
 		http.connect();
 		BufferedReader reader = new BufferedReader(new InputStreamReader(http.getInputStream()));
@@ -100,7 +91,7 @@ public class Aclog{
 	 * 
 	 * */
 	public Status show(long tweetId) throws Exception{
-		String res = get(BASE+SHOW,tweetId);
+		String res = get(BASE+SHOW,new Paging(tweetId));
 		return (Status)new StatusImpl(res);
 	}
 
@@ -111,20 +102,16 @@ public class Aclog{
 	 *            aclog's page(1,2,3,...)
 	 * */
 	public ArrayList<Status> getBest(String screenName,int page) throws Exception{
-		String res = get(BASE+BEST,screenName,page,0);
+		String res = get(BASE+BEST,new Paging(screenName,page));
 		return toStatus(res);
 	}
 
 	/**
-	 * @param screenName
-	 *            Twitter's User screenName
-	 * @param page
-	 *            aclog's page(1,2,3,...)
-	 * @param count
-	 *            aclog's count(1-100)
+	 * @param p
+	 *            Paging
 	 * */
-	public ArrayList<Status> getBest(String screenName,int page,int count) throws Exception{
-		String res = get(BASE+BEST,screenName,page,count);
+	public ArrayList<Status> getBest(Paging p) throws Exception{
+		String res = get(BASE+BEST,p);
 		return toStatus(res);
 	}
 
@@ -135,20 +122,16 @@ public class Aclog{
 	 *            aclog's page(1,2,3,...)
 	 * */
 	public ArrayList<Status> getTimeline(String screenName,int page) throws Exception{
-		String res = get(BASE+TL,screenName,page,0);
+		String res = get(BASE+TL,new Paging(screenName,page));
 		return toStatus(res);
 	}
 
 	/**
-	 * @param screenName
-	 *            Twitter's User screenName
-	 * @param page
-	 *            aclog's page(1,2,3,...)
-	 * @param count
-	 *            aclog's count(1-100)
+	 * @param p
+	 *            Paging
 	 * */
-	public ArrayList<Status> getTimeline(String screenName,int page,int count) throws Exception{
-		String res = get(BASE+TL,screenName,page,count);
+	public ArrayList<Status> getTimeline(Paging p) throws Exception{
+		String res = get(BASE+TL,p);
 		return toStatus(res);
 	}
 
@@ -159,20 +142,16 @@ public class Aclog{
 	 *            aclog's page(1,2,3,...)
 	 * */
 	public ArrayList<Status> getDiscovered(String screenName,int page) throws Exception{
-		String res = get(BASE+DIS,screenName,page,0);
+		String res = get(BASE+DIS,new Paging(screenName,page));
 		return toStatus(res);
 	}
 
 	/**
-	 * @param screenName
-	 *            Twitter's User screenName
-	 * @param page
-	 *            aclog's page(1,2,3,...)
-	 * @param count
-	 *            aclog's count(1-100)
+	 * @param p
+	 *            Paging
 	 * */
-	public ArrayList<Status> getDiscovered(String screenName,int page,int count) throws Exception{
-		String res = get(BASE+DIS,screenName,page,count);
+	public ArrayList<Status> getDiscovered(Paging p) throws Exception{
+		String res = get(BASE+DIS,p);
 		return toStatus(res);
 	}
 
@@ -181,7 +160,7 @@ public class Aclog{
 	 *            Twitter's User screenName
 	 * */
 	public ArrayList<Ids> getFavoritedBy(String screenName) throws Exception{
-		String res = get(BASE+FAVBY,screenName,0,0);
+		String res = get(BASE+FAVBY,new Paging(screenName));
 		return toIds(res);
 	}
 
@@ -190,7 +169,7 @@ public class Aclog{
 	 *            Twitter's User screenName
 	 * */
 	public ArrayList<Ids> getRetweetedBy(String screenName) throws Exception{
-		String res = get(BASE+RTBY,screenName,0,0);
+		String res = get(BASE+RTBY,new Paging(screenName));
 		return toIds(res);
 	}
 
@@ -199,7 +178,7 @@ public class Aclog{
 	 *            Twitter's User screenName
 	 * */
 	public ArrayList<Ids> getFavoritesTo(String screenName) throws Exception{
-		String res = get(BASE+GIVFAV,screenName,0,0);
+		String res = get(BASE+GIVFAV,new Paging(screenName));
 		return toIds(res);
 	}
 
@@ -208,7 +187,7 @@ public class Aclog{
 	 *            Twitter's User screenName
 	 * */
 	public ArrayList<Ids> getRetweetsTo(String screenName) throws Exception{
-		String res = get(BASE+GIVRT,screenName,0,0);
+		String res = get(BASE+GIVRT,new Paging(screenName));
 		return toIds(res);
 	}
 
@@ -217,7 +196,7 @@ public class Aclog{
 	 *            Twitter's User screenName
 	 * */
 	public UserInfo info(String screenName) throws Exception{
-		String res = get(BASE+INFO,screenName,1,0);
+		String res = get(BASE+INFO,new Paging(screenName));
 		return (UserInfo)new UserInfoImpl(res);
 	}
 }
