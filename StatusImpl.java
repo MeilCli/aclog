@@ -5,11 +5,11 @@ import org.json.JSONObject;
 
 public class StatusImpl implements Status{
 	private long id;
-	private User user;
+	private long userId;
 	private int favoritesCount;
 	private int retweetsCount;
-	private User[] favoritesUser;
-	private User[] retweetsUser;
+	private long[] favoritesUserId;
+	private long[] retweetsUserId;
 
 	public StatusImpl(String res) throws Exception{
 		JSONObject json = new JSONObject(res);
@@ -22,36 +22,26 @@ public class StatusImpl implements Status{
 
 	private void init(JSONObject json) throws Exception{
 		id = json.getLong("id");
-		if(!json.isNull("user")){
-			user = new UserImpl(json.getJSONObject("user"));
-		}
+		userId = json.getLong("user_id");
 		favoritesCount = json.getInt("favorites_count");
 		retweetsCount = json.getInt("retweets_count");
 		if(!json.isNull("favorites")){
 			JSONArray favorites = json.getJSONArray("favorites");
-			int fi = favorites.length();
-			favoritesUser = new User[fi];
+			int fi = favorites.length();			
 			for(int i = 0;i<fi;i++){
-				JSONObject users = favorites.getJSONObject(i);
-				if(!users.isNull("user")){
-					favoritesUser[i] = new UserImpl(users.getJSONObject("user"));
-				}
+				favoritesUserId[i] = favorites.getLong(i);
 			}
 		}else{
-			favoritesUser = new User[0];
+			favoritesUserId = new long[0];
 		}
 		if(!json.isNull("retweets")){
-			JSONArray favorites = json.getJSONArray("retweets");
-			int ri = favorites.length();
-			retweetsUser = new User[ri];
+			JSONArray retweets = json.getJSONArray("retweets");
+			int ri = retweets.length();			
 			for(int i = 0;i<ri;i++){
-				JSONObject users = favorites.getJSONObject(i);
-				if(!users.isNull("user")){
-					retweetsUser[i] = new UserImpl(users.getJSONObject("user"));
-				}
+				retweetsUserId[i] = retweets.getLong(i);
 			}
 		}else{
-			retweetsUser = new User[0];
+			retweetsUserId = new long[0];
 		}
 	}
 
@@ -61,8 +51,8 @@ public class StatusImpl implements Status{
 	}
 
 	@Override
-	public User getUser(){
-		return user;
+	public long getUserId(){
+		return userId;
 	}
 
 	@Override
@@ -76,19 +66,13 @@ public class StatusImpl implements Status{
 	}
 
 	@Override
-	public User[] getFavoritesUser(){
-		return favoritesUser;
+	public long[] getFavoritesUserId(){
+		return favoritesUserId;
 	}
 
 	@Override
-	public User[] getRetweetsUser(){
-		return retweetsUser;
-	}
-
-	@Override
-	public String toString(){
-		return "id="+id+",user="+user.toString()+",favoritesCount="+favoritesCount+",retweetsCount="+retweetsCount+",favoritesUser="
-				+favoritesUser.toString()+",retweetsUser="+retweetsUser.toString();
+	public long[] getRetweetsUserId(){
+		return retweetsUserId;
 	}
 
 }

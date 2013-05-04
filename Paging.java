@@ -3,14 +3,16 @@ package com.fc2.blog.uameildi401.asfc4.aclog;
 /**
  * Paging data
  * */
-
 public class Paging{
 	protected int count;
 	protected int page = 1;
-	protected int limit = 10;
 	protected long tweet_id;
 	protected long max_id;
+	protected long since_id;
+	protected long userId;
+	protected long userId_b;
 	protected String screenName;
+	protected String screenName_b;
 
 	public Paging(){}
 
@@ -48,31 +50,6 @@ public class Paging{
 	}
 
 	/**
-	 * @param screenName
-	 *            Twitter's User screenName
-	 * @param max_id
-	 *            alike Twitter's max_id
-	 * */
-	public Paging(String screenName,long max_id){
-		this.screenName = screenName;
-		this.max_id = max_id;
-	}
-
-	/**
-	 * @param screenName
-	 *            Twitter's User screenName
-	 * @param max_id
-	 *            alike Twitter's max_id
-	 * @param count
-	 *            aclog's count(1-100)
-	 * */
-	public Paging(String screenName,long max_id,int count){
-		this.screenName = screenName;
-		this.max_id = max_id;
-		this.count = count;
-	}
-
-	/**
 	 * @param tweet_id
 	 *            Twitter's Tweet ID
 	 * */
@@ -97,14 +74,6 @@ public class Paging{
 	}
 
 	/**
-	 * @param limit
-	 *            limit data of User Object
-	 * */
-	public void setLimit(int limit){
-		this.limit = limit;
-	}
-
-	/**
 	 * @param tweet_id
 	 *            Twitter's Tweet ID
 	 * */
@@ -119,6 +88,14 @@ public class Paging{
 	public void setMax_id(long max_id){
 		this.max_id = max_id;
 	}
+	
+	/**
+	 * @param since_id
+	 *            alike Twitter's since_id
+	 * */
+	public void setSince_id(long since_id){
+		this.since_id = since_id;
+	}
 
 	/**
 	 * @param screenName
@@ -126,5 +103,29 @@ public class Paging{
 	 * */
 	public void setScreenName(String screenName){
 		this.screenName = screenName;
+	}
+	
+	/**
+	 * @param screenName_b
+	 *            Twitter's User screenName
+	 * */
+	public void setScreenName_b(String screenName_b){
+		this.screenName_b = screenName_b;
+	}
+	
+	/**
+	 * @param userId
+	 *            Twitter's User ID
+	 * */
+	public void setUserId(long userId){
+		this.userId = userId;
+	}
+	
+	/**
+	 * @param userId_b
+	 *            Twitter's User ID
+	 * */
+	public void setUserId_b(long userId_b){
+		this.userId_b = userId_b;
 	}
 }

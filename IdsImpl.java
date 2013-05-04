@@ -4,32 +4,32 @@ import org.json.JSONObject;
 
 public class IdsImpl implements Ids{
 
-	private int count;
-	private User user;
+	private int favoritesCount;
+	private int retweetsCount;
+	private long userId;
 
 	public IdsImpl(JSONObject res) throws Exception{
 		init(res);
 	}
 
 	private void init(JSONObject json) throws Exception{
-		count = json.getInt("count");
-		if(!json.isNull("user")){
-			user = new UserImpl(json.getJSONObject("user"));
-		}
+		favoritesCount = json.getInt("favorites_count");
+		retweetsCount = json.getInt("retweets_count");
+		userId = json.getLong("user_id");
 	}
 
 	@Override
-	public int getCount(){
-		return count;
+	public long getUserId(){
+		return userId;
 	}
 
 	@Override
-	public User getUser(){
-		return user;
+	public int getFavoritesCount(){
+		return favoritesCount;
 	}
 
 	@Override
-	public String toString(){
-		return "count="+count+",user="+user.toString();
+	public int getRetweetsCount(){
+		return retweetsCount;
 	}
 }

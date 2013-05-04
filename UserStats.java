@@ -3,13 +3,12 @@ package com.fc2.blog.uameildi401.asfc4.aclog;
 /**
  * UserInfo data
  * */
-public interface UserInfo{
+public interface UserStats{
 	
 	/**
 	 * @return aclog know User
-	 * @see User
 	 * */
-	User getUser();
+	long getUserId();
 	
 	/**
 	 * @return aclog know Favorited count

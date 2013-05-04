@@ -12,9 +12,8 @@ public interface Status{
 
 	/**
 	 * @return aclog know User
-	 * @see User
 	 * */
-	User getUser();
+	long getUserId();
 
 	/**
 	 * @return aclog know Favorites Count
@@ -30,11 +29,11 @@ public interface Status{
 	 * @return aclog know Favorites User
 	 * @see User
 	 * */
-	User[] getFavoritesUser();
+	long[] getFavoritesUserId();
 
 	/**
 	 * @return aclog know Retweets User
 	 * @see User
 	 * */
-	User[] getRetweetsUser();
+	long[] getRetweetsUserId();
 }

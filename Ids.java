@@ -9,10 +9,15 @@ public interface Ids{
 	 * @return aclog know User
 	 * @see User
 	 * */
-	User getUser();
+	long getUserId();
 	
 	/**
 	 * @return aclog know count
 	 * */
-	int getCount();
+	int getFavoritesCount();
+	
+	/**
+	 * @return aclog know count
+	 * */
+	int getRetweetsCount();
 }
