@@ -24,19 +24,21 @@ public class StatusImpl implements Status{
 		id = json.getLong("id");
 		userId = json.getLong("user_id");
 		favoritesCount = json.getInt("favorites_count");
-		retweetsCount = json.getInt("retweets_count");
-		if(!json.isNull("favorites")){
-			JSONArray favorites = json.getJSONArray("favorites");
-			int fi = favorites.length();			
+		retweetsCount = json.getInt("retweets_count");		
+		if(!json.isNull("favoriters")){
+			JSONArray favorites = json.getJSONArray("favoriters");
+			int fi = favorites.length();
+			favoritesUserId = new long[fi];
 			for(int i = 0;i<fi;i++){
 				favoritesUserId[i] = favorites.getLong(i);
 			}
 		}else{
 			favoritesUserId = new long[0];
 		}
-		if(!json.isNull("retweets")){
-			JSONArray retweets = json.getJSONArray("retweets");
-			int ri = retweets.length();			
+		if(!json.isNull("retweeters")){
+			JSONArray retweets = json.getJSONArray("retweeters");
+			int ri = retweets.length();
+			retweetsUserId = new long[ri];
 			for(int i = 0;i<ri;i++){
 				retweetsUserId[i] = retweets.getLong(i);
 			}
