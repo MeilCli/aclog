@@ -1,4 +1,4 @@
-package com.fc2.blog.uameildi401.asfc4.aclog;
+package info.re4k.asfc.aclog;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -15,54 +15,76 @@ public class Aclog{
 
 	public Aclog(){}
 
-	private String toUrl(String url,Paging p){
-		url += "?";
-		url += "&page="+p.page;
-		if(p.screenName!=null)
-			url += "&screen_name="+p.screenName;
-		if(p.userId!=0)
-			url += "&user_id="+p.userId;
-		if(p.screenName_b!=null)
-			url += "&screen_name_b="+p.screenName_b;
-		if(p.userId_b!=0)
-			url += "&user_id_b="+p.userId_b;
-		if(p.count!=0)
-			url += "&count="+p.count;
-		if(p.tweet_id!=0)
-			url += "&id="+p.tweet_id;
-		if(p.max_id!=0)
-			url += "&max_id="+p.max_id;
-		if(p.since_id!=0)
-			url += "&since_id="+p.since_id;
-		return url;
+	protected String toUrl(String url,Paging p){
+		StringBuilder sb = new StringBuilder(url);
+		sb.append("?");
+		if(p.page!=0){
+			sb.append("&page=");
+			sb.append(p.page);
+		}
+		if(p.screenName!=null){
+			sb.append("&screen_name=");
+			sb.append(p.screenName);
+		}
+		if(p.userId!=0){
+			sb.append("&user_id=");
+			sb.append(p.userId);
+		}
+		if(p.screenName_b!=null){
+			sb.append("&screen_name_b=");
+			sb.append(p.screenName_b);
+		}
+		if(p.userId_b!=0){
+			sb.append("&user_id_b=");
+			sb.append(p.userId_b);
+		}
+		if(p.count!=0){
+			sb.append("&count=");
+			sb.append(p.count);
+		}
+		if(p.tweet_id!=0){
+			sb.append("&id=");
+			sb.append(p.tweet_id);
+		}
+		if(p.max_id!=0){
+			sb.append("&max_id=");
+			sb.append(p.max_id);
+		}
+		if(p.since_id!=0){
+			sb.append("&since_id=");
+			sb.append(p.since_id);
+		}
+		return sb.toString();
 	}
 
-	private String toUrl(String url,ArrayList<Long> ids){
-		url += "?user_id=";
+	protected String toUrl(String url,ArrayList<Long> ids){
+		StringBuilder sb = new StringBuilder(url);
+		sb.append("?user_id=");
 		for(int i = 0;i<ids.size();i++){
 			if(i!=0){
-				url += ",";
+				sb.append(",");
 			}
-			url += ids.get(i)+"";
+			sb.append(ids.get(i));
 		}
-		return url;
+		return sb.toString();
 	}
 
-	private String get(String url) throws Exception{
+	protected String get(String url) throws Exception{
 		URL url2 = new URL(url);
 		HttpURLConnection http = (HttpURLConnection)url2.openConnection();
 		http.connect();
 		BufferedReader reader = new BufferedReader(new InputStreamReader(http.getInputStream()));
-		String res = "";
+		StringBuilder sb = new StringBuilder();
 		while(true){
 			String line = reader.readLine();
 			if(line==null){
 				break;
 			}
-			res += line;
+			sb.append(line).append('\n');
 		}
 		http.disconnect();
 		reader.close();
+		String res = sb.toString();
 		try{
 			JSONObject json = new JSONObject(res);
 			if(!json.isNull("error")){
@@ -77,7 +99,7 @@ public class Aclog{
 		JSONArray ja = new JSONArray(res);
 		int ji = ja.length();
 		for(int i = 0;i<ji;i++){
-			list.add((Status)new StatusImpl(ja.getJSONObject(i)));
+			list.add(new StatusImpl(ja.getJSONObject(i)));
 		}
 		return list;
 	}
@@ -87,7 +109,7 @@ public class Aclog{
 		JSONArray ja = new JSONArray(res);
 		int ji = ja.length();
 		for(int i = 0;i<ji;i++){
-			list.add((Ids)new IdsImpl(ja.getJSONObject(i)));
+			list.add(new IdsImpl(ja.getJSONObject(i)));
 		}
 		return list;
 	}
@@ -97,7 +119,7 @@ public class Aclog{
 		JSONArray ja = new JSONArray(res);
 		int ji = ja.length();
 		for(int i = 0;i<ji;i++){
-			list.add((User)new UserImpl(ja.getJSONObject(i)));
+			list.add(new UserImpl(ja.getJSONObject(i)));
 		}
 		return list;
 	}
@@ -107,7 +129,6 @@ public class Aclog{
 	private static final String BEST = "/api/tweets/best.json";
 	private static final String FAVORITED = "/api/tweets/favorited.json";
 	private static final String RETWEETED = "/api/tweets/retweeted.json";
-	private static final String RECENT = "/api/tweets/recent.json";
 	private static final String TL = "/api/tweets/timeline.json";
 	private static final String DIS = "/api/tweets/discoveries.json";
 	private static final String FAV = "/api/tweets/favorites.json";
@@ -125,7 +146,7 @@ public class Aclog{
 	 * */
 	public Status show(long tweetId) throws Exception{
 		String res = get(toUrl(BASE+SHOW,new Paging(tweetId)));
-		return (Status)new StatusImpl(res);
+		return new StatusImpl(res);
 	}
 
 	/**
@@ -152,15 +173,6 @@ public class Aclog{
 	 * */
 	public ArrayList<Status> getRetweeted(Paging p) throws Exception{
 		String res = get(toUrl(BASE+RETWEETED,p));
-		return toStatus(res);
-	}
-
-	/**
-	 * @param p
-	 *            Paging
-	 * */
-	public ArrayList<Status> getRecent(Paging p) throws Exception{
-		String res = get(toUrl(BASE+RECENT,p));
 		return toStatus(res);
 	}
 
@@ -215,7 +227,7 @@ public class Aclog{
 	 * */
 	public UserStats stats(Paging p) throws Exception{
 		String res = get(toUrl(BASE+STATS,p));
-		return (UserStats)new UserStatsImpl(res);
+		return new UserStatsImpl(res);
 	}
 
 	/**

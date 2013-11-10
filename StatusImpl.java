@@ -1,4 +1,4 @@
-package com.fc2.blog.uameildi401.asfc4.aclog;
+package info.re4k.asfc.aclog;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -24,7 +24,7 @@ public class StatusImpl implements Status{
 		id = json.getLong("id");
 		userId = json.getLong("user_id");
 		favoritesCount = json.getInt("favorites_count");
-		retweetsCount = json.getInt("retweets_count");		
+		retweetsCount = json.getInt("retweets_count");
 		if(!json.isNull("favoriters")){
 			JSONArray favorites = json.getJSONArray("favoriters");
 			int fi = favorites.length();

@@ -1,4 +1,4 @@
-package com.fc2.blog.uameildi401.asfc4.aclog;
+package info.re4k.asfc.aclog;
 
 /**
  * Status data

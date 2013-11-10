@@ -1,4 +1,4 @@
-package com.fc2.blog.uameildi401.asfc4.aclog;
+package info.re4k.asfc.aclog;
 
 import org.json.JSONObject;
 
@@ -6,7 +6,7 @@ public class UserImpl implements User{
 
 	private String screenName;
 	private long userId;
-	
+
 	public UserImpl(JSONObject res) throws Exception{
 		init(res);
 	}
@@ -25,7 +25,7 @@ public class UserImpl implements User{
 	public long getUserId(){
 		return userId;
 	}
-	
+
 	@Override
 	public String toString(){
 		return "screenname="+screenName+",userid="+userId;

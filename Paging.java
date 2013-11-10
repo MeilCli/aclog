@@ -1,18 +1,18 @@
-package com.fc2.blog.uameildi401.asfc4.aclog;
+package info.re4k.asfc.aclog;
 
 /**
  * Paging data
  * */
 public class Paging{
-	protected int count;
-	protected int page = 1;
-	protected long tweet_id;
-	protected long max_id;
-	protected long since_id;
-	protected long userId;
-	protected long userId_b;
-	protected String screenName;
-	protected String screenName_b;
+	public int count;
+	public int page = 0;
+	public long tweet_id;
+	public long max_id;
+	public long since_id;
+	public long userId;
+	public long userId_b;
+	public String screenName;
+	public String screenName_b;
 
 	public Paging(){}
 
@@ -88,7 +88,7 @@ public class Paging{
 	public void setMax_id(long max_id){
 		this.max_id = max_id;
 	}
-	
+
 	/**
 	 * @param since_id
 	 *            alike Twitter's since_id
@@ -104,7 +104,7 @@ public class Paging{
 	public void setScreenName(String screenName){
 		this.screenName = screenName;
 	}
-	
+
 	/**
 	 * @param screenName_b
 	 *            Twitter's User screenName
@@ -112,7 +112,7 @@ public class Paging{
 	public void setScreenName_b(String screenName_b){
 		this.screenName_b = screenName_b;
 	}
-	
+
 	/**
 	 * @param userId
 	 *            Twitter's User ID
@@ -120,7 +120,7 @@ public class Paging{
 	public void setUserId(long userId){
 		this.userId = userId;
 	}
-	
+
 	/**
 	 * @param userId_b
 	 *            Twitter's User ID
