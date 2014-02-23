@@ -1,13 +1,15 @@
-package info.re4k.asfc.aclog;
+package info.re4k.asfc.aclog.impl;
 
-import org.json.JSONArray;
-import org.json.JSONObject;
+import info.re4k.asfc.aclog.Status;
+import info.re4k.asfc.aclog.json.JSONArray;
+import info.re4k.asfc.aclog.json.JSONObject;
+
 
 public class StatusImpl implements Status{
-	private long id;
-	private long userId;
-	private int favoritesCount;
-	private int retweetsCount;
+	private long id=-1;
+	private long userId=-1;
+	private int favoritesCount=-1;
+	private int retweetsCount=-1;
 	private long[] favoritesUserId;
 	private long[] retweetsUserId;
 

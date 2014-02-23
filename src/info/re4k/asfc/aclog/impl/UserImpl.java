@@ -1,11 +1,13 @@
-package info.re4k.asfc.aclog;
+package info.re4k.asfc.aclog.impl;
 
-import org.json.JSONObject;
+import info.re4k.asfc.aclog.User;
+import info.re4k.asfc.aclog.json.JSONObject;
+
 
 public class UserImpl implements User{
 
 	private String screenName;
-	private long userId;
+	private long userId=-1;
 
 	public UserImpl(JSONObject res) throws Exception{
 		init(res);
@@ -24,10 +26,5 @@ public class UserImpl implements User{
 	@Override
 	public long getUserId(){
 		return userId;
-	}
-
-	@Override
-	public String toString(){
-		return "screenname="+screenName+",userid="+userId;
 	}
 }

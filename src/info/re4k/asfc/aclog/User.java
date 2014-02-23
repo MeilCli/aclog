@@ -1,8 +1,5 @@
 package info.re4k.asfc.aclog;
 
-/**
- * User data
- * */
 public interface User{
 
 	/**

@@ -1,8 +1,5 @@
 package info.re4k.asfc.aclog;
 
-/**
- * Status data
- * */
 public interface Status{
 
 	/**
