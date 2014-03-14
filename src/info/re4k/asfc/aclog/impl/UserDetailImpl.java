@@ -5,8 +5,8 @@ import info.re4k.asfc.aclog.json.JSONObject;
 
 public class UserDetailImpl implements UserDetail{
 
-	private long favoritesCount = -1;
-	private long retweetsCount = -1;
+	private int favoritesCount;
+	private int retweetsCount;
 	private long userId = -1;
 
 	public UserDetailImpl(JSONObject res) throws Exception{
@@ -14,8 +14,8 @@ public class UserDetailImpl implements UserDetail{
 	}
 
 	private void init(JSONObject json) throws Exception{
-		favoritesCount = json.getLong("favorites_count");
-		retweetsCount = json.getLong("retweets_count");
+		favoritesCount = json.getInt("favorites_count");
+		retweetsCount = json.getInt("retweets_count");
 		userId = json.getLong("id");
 	}
 
@@ -25,12 +25,12 @@ public class UserDetailImpl implements UserDetail{
 	}
 
 	@Override
-	public long getFavoritesCount(){
+	public int getFavoritesCount(){
 		return favoritesCount;
 	}
 
 	@Override
-	public long getRetweetsCount(){
+	public int getRetweetsCount(){
 		return retweetsCount;
 	}
 

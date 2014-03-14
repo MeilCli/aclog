@@ -11,9 +11,9 @@ import info.re4k.asfc.aclog.param.UserParam;
 public class AclogTest{
 
 	private static boolean isLog = false;
-	private static String testUserScrrenName1 = "ta_ka_na_M";
+	private static String testUserScrrenName1 = "meil_mitu";
 	private static String testUserScrrenName2 = "cn";
-	private static long testUserId1 = 262154677;// ta_ka_na_M
+	private static long testUserId1 = 262154677;// meil_mitu
 	private static long testUserId2 = 280414022;// cn
 	private static long testTweetId1 = 43341783446466560L;
 	private static long testTweetId2 = 50220624609685505L;
@@ -35,7 +35,7 @@ public class AclogTest{
 		lookup();
 		show();
 	}
-
+	
 	private static void show(){
 		System.out.println("Aclog#show start");
 		try{

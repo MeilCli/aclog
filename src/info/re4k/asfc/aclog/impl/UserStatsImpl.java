@@ -6,7 +6,7 @@ import info.re4k.asfc.aclog.json.JSONObject;
 public class UserStatsImpl implements UserStats{
 
 	private long userId = -1;
-	private long reactionsCount = -1;
+	private int reactionsCount;
 
 	public UserStatsImpl(String res) throws Exception{
 		JSONObject json = new JSONObject(res);
@@ -15,7 +15,7 @@ public class UserStatsImpl implements UserStats{
 
 	private void init(JSONObject json) throws Exception{
 		userId = json.getLong("id");
-		reactionsCount = json.getLong("reactions_count");
+		reactionsCount = json.getInt("reactions_count");
 	}
 
 	@Override
@@ -24,7 +24,7 @@ public class UserStatsImpl implements UserStats{
 	}
 
 	@Override
-	public long getReactionsCount(){
+	public int getReactionsCount(){
 		return reactionsCount;
 	}
 

@@ -9,10 +9,10 @@ public interface UserDetail{
 	/**
 	 * @return aclog know Favorites count
 	 * */
-	long getFavoritesCount();
+	int getFavoritesCount();
 
 	/**
 	 * @return aclog know Retweets count
 	 * */
-	long getRetweetsCount();
+	int getRetweetsCount();
 }

@@ -24,13 +24,11 @@ public interface Status{
 
 	/**
 	 * @return aclog know Favorites User
-	 * @see User
 	 * */
 	long[] getFavoritesUserId();
 
 	/**
 	 * @return aclog know Retweets User
-	 * @see User
 	 * */
 	long[] getRetweetsUserId();
 }

@@ -10,6 +10,6 @@ public interface UserStats{
 	/**
 	 * @return aclog know Favorited count and Retweeted count
 	 * */
-	long getReactionsCount();
+	int getReactionsCount();
 
 }

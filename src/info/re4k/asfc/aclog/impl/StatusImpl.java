@@ -8,8 +8,8 @@ import info.re4k.asfc.aclog.json.JSONObject;
 public class StatusImpl implements Status{
 	private long id=-1;
 	private long userId=-1;
-	private int favoritesCount=-1;
-	private int retweetsCount=-1;
+	private int favoritesCount;
+	private int retweetsCount;
 	private long[] favoritesUserId;
 	private long[] retweetsUserId;
 
