@@ -46,13 +46,13 @@ public class Aclog extends AclogHttp implements AclogConstant{
 		return toStatus(res);
 	}
 
-	public ArrayList<Status> getDiscoveries(ReactionParam p) throws Exception{
-		String res = get(p.toParam().insert(0,user_discoveries).toString());
+	public ArrayList<Status> getFavorites(ReactionParam p) throws Exception{
+		String res = get(p.toParam().insert(0,user_favorites).toString());
 		return toStatus(res);
 	}
 
-	public ArrayList<Status> getDiscoveredBy(SourceParam p) throws Exception{
-		String res = get(p.toParam().insert(0,user_discovered_by).toString());
+	public ArrayList<Status> getFavoritedBy(SourceParam p) throws Exception{
+		String res = get(p.toParam().insert(0,user_favorited_by).toString());
 		return toStatus(res);
 	}
 

@@ -18,7 +18,7 @@ import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
 
 public class AclogHttp{
-	private APIKey key;
+	protected APIKey key;
 	private static boolean isLog = false;
 	private static final String TWITTER_VERIFY_CREDENTIALS_JSON_V1_1 = "https://api.twitter.com/1.1/account/verify_credentials.json";
 
@@ -63,7 +63,7 @@ public class AclogHttp{
 		return sb.toString();
 	}
 
-	private String createAuthorization() throws Exception{
+	protected String createAuthorization() throws Exception{
 		SortedMap<String,String> params = new TreeMap<String,String>();
 		params.put("oauth_consumer_key",key.getConsumerKey());
 		params.put("oauth_signature_method","HMAC-SHA1");
@@ -103,6 +103,7 @@ public class AclogHttp{
 		http.setRequestMethod("GET");
 		http.setConnectTimeout(10*1000);
 		http.setReadTimeout(10*1000);
+		http.setInstanceFollowRedirects(true);
 		if(key!=null){
 			try{
 				http.setRequestProperty("X-Auth-Service-Provider",TWITTER_VERIFY_CREDENTIALS_JSON_V1_1);
@@ -119,6 +120,9 @@ public class AclogHttp{
 		BufferedReader reader = null;
 		try{
 			http.connect();
+			if(http.getResponseCode()!=HttpURLConnection.HTTP_OK){
+				throw new Exception(http.getResponseCode()+" : "+http.getResponseMessage());
+			}
 			logHeader(http);
 			reader = new BufferedReader(new InputStreamReader(http.getInputStream()));
 			String line = null;

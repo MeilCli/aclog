@@ -7,12 +7,8 @@ public interface UserDetail{
 	long getUserId();
 
 	/**
-	 * @return aclog know Favorites count
+	 * @return aclog know reaction count
 	 * */
-	int getFavoritesCount();
+	int getCount();
 
-	/**
-	 * @return aclog know Retweets count
-	 * */
-	int getRetweetsCount();
 }

@@ -11,5 +11,10 @@ public interface UserStats{
 	 * @return aclog know Favorited count and Retweeted count
 	 * */
 	int getReactionsCount();
+	
+	/**
+	 * @return this user is registered in aclog
+	 */
+	boolean isRegistered();
 
 }

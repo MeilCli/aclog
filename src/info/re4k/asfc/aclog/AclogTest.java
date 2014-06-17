@@ -29,8 +29,8 @@ public class AclogTest{
 		getUserDiscoveredBy();
 		getUserDiscoveredUsers();
 		getBest();
-		getDiscoveries();
-		getDiscoveredBy();
+		getFavorites();
+		getFavoritedBy();
 		getTimeline();
 		lookup();
 		show();
@@ -93,8 +93,8 @@ public class AclogTest{
 		System.out.println("Aclog#getTimeline end");
 	}
 
-	private static void getDiscoveredBy(){
-		System.out.println("Aclog#getDiscoveredBy start");
+	private static void getFavoritedBy(){
+		System.out.println("Aclog#getFavoritedBy start");
 		SourceParam p1 = new SourceParam(testUserScrrenName2,testUserId1);
 		p1.setCount(10);
 		p1.setPage(1);
@@ -110,16 +110,16 @@ public class AclogTest{
 				System.out.println(u.toParam().toString());
 			}
 			try{
-				testStatuses(aclog.getDiscoveredBy(u));
+				testStatuses(aclog.getFavoritedBy(u));
 			}catch(Exception e){
 				e.printStackTrace();
 			}
 		}
-		System.out.println("Aclog#getDiscoveredBy end");
+		System.out.println("Aclog#getFavoritedBy end");
 	}
 
-	private static void getDiscoveries(){
-		System.out.println("Aclog#getDiscoveries start");
+	private static void getFavorites(){
+		System.out.println("Aclog#getFavorites start");
 		ReactionParam p1 = new ReactionParam(testUserScrrenName1);
 		p1.setCount(10);
 		p1.setPage(1);
@@ -135,12 +135,12 @@ public class AclogTest{
 				System.out.println(u.toParam().toString());
 			}
 			try{
-				testStatuses(aclog.getDiscoveries(u));
+				testStatuses(aclog.getFavorites(u));
 			}catch(Exception e){
 				e.printStackTrace();
 			}
 		}
-		System.out.println("Aclog#getDiscoveries end");
+		System.out.println("Aclog#getFavorites end");
 	}
 
 	private static void getBest(){
@@ -343,17 +343,11 @@ public class AclogTest{
 				System.out.print("UserDetail#getUserId()==");
 				System.out.println(status.getUserId());
 			}
-			if(status.getFavoritesCount()==-1){
-				System.out.println("UserDetail#getFavoritesCount()==-1");
+			if(status.getCount()==-1){
+				System.out.println("UserDetail#getCount()==-1");
 			}else if(isLog==true&&i==0){
-				System.out.print("UserDetail#getFavoritesCount()==");
-				System.out.println(status.getFavoritesCount());
-			}
-			if(status.getRetweetsCount()==-1){
-				System.out.println("UserDetail#getRetweetsCount()==-1");
-			}else if(isLog==true&&i==0){
-				System.out.print("UserDetail#getRetweetsCount()==");
-				System.out.println(status.getRetweetsCount());
+				System.out.print("UserDetail#getCount()==");
+				System.out.println(status.getCount());
 			}
 		}
 	}
