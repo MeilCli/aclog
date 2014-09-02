@@ -19,13 +19,17 @@ import javax.crypto.spec.SecretKeySpec;
 
 public class AclogHttp{
 	protected APIKey key;
+	protected AclogConfig config;
 	private static boolean isLog = false;
 	private static final String TWITTER_VERIFY_CREDENTIALS_JSON_V1_1 = "https://api.twitter.com/1.1/account/verify_credentials.json";
 
-	public AclogHttp(){}
+	public AclogHttp(AclogConfig config){
+		this.config=config;
+	}
 
-	public AclogHttp(APIKey key){
+	public AclogHttp(APIKey key,AclogConfig config){
 		this.key = key;
+		this.config=config;
 	}
 
 	private String urlEncode(String string){
@@ -101,8 +105,8 @@ public class AclogHttp{
 		URL url2 = new URL(url);
 		HttpURLConnection http = (HttpURLConnection)url2.openConnection();
 		http.setRequestMethod("GET");
-		http.setConnectTimeout(10*1000);
-		http.setReadTimeout(10*1000);
+		http.setConnectTimeout(this.config.connectTimeOut);
+		http.setReadTimeout(this.config.resdTimeout);
 		http.setInstanceFollowRedirects(true);
 		if(key!=null){
 			try{

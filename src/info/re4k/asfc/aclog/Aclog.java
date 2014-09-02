@@ -19,11 +19,19 @@ import java.util.ArrayList;
 public class Aclog extends AclogHttp implements AclogConstant{
 
 	public Aclog(){
-		super();
+		super(new AclogConfig());
+	}
+
+	public Aclog(AclogConfig config){
+		super(config);
 	}
 
 	public Aclog(APIKey key){
-		super(key);
+		super(key,new AclogConfig());
+	}
+
+	public Aclog(APIKey key,AclogConfig config){
+		super(key,config);
 	}
 
 	public Status show(long tweetId) throws Exception{
@@ -36,6 +44,11 @@ public class Aclog extends AclogHttp implements AclogConstant{
 		return toStatus(res);
 	}
 
+	/**
+	 * @param p RecentParam is OK(RecentParam extends PageParam)
+	 * @return
+	 * @throws Exception
+	 */
 	public ArrayList<Status> getBest(PageParam p) throws Exception{
 		String res = get(p.toParam().insert(0,user_best).toString());
 		return toStatus(res);
